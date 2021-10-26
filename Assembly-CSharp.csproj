@@ -62,16 +62,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\StateMachine\Base\State.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\Base\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameSM.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameState.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Common\StateMachine\State.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Common\StateMachine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Controllers\InputController.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\Controllers\TurnBasedGameUIController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyTurnState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\InputController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\LoseState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerTurnState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\TurnBasedGameSM.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\TurnBasedGameState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\TurnBasedGameUIController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\WinState.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/aaron/Desktop/UnityProjects/Fall2021/Scripting for Games 2/FriesenhahnAaron_P03_Turn-Based_Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

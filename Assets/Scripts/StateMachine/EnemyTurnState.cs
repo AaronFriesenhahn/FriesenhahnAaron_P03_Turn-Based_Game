@@ -29,6 +29,9 @@ public class EnemyTurnState : TurnBasedGameState
         yield return new WaitForSeconds(pauseDuration);
 
         Debug.Log("Enemy performs action");
+        //TODO Enemy moves
+        //Code for enemy action
+
         EnemyTurnEnded?.Invoke();
         //turn over. Go back to Player.
         StateMachine.ChangeState<PlayerTurnState>();

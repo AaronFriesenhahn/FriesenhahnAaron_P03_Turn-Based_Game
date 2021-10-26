@@ -12,7 +12,6 @@ public abstract class StateMachine : MonoBehaviour
 
     public void ChangeState<T>() where T : State
     {
-        Debug.Log("ChangeState");
         T targetState = GetComponent<T>();
         if (targetState == null)
         {
@@ -28,7 +27,6 @@ public abstract class StateMachine : MonoBehaviour
 
     public void RevertState()
     {
-        Debug.Log("RevertState");
         if (_previousState != null)
         {
             InitiateStateChange(_previousState);
@@ -37,7 +35,6 @@ public abstract class StateMachine : MonoBehaviour
 
     void InitiateStateChange(State targetState)
     {
-        Debug.Log("InitiateStateChange");
         //if our new state is different and we're not transitioning, do it
         if (_currentState != targetState && !InTransition)
         {
@@ -47,7 +44,6 @@ public abstract class StateMachine : MonoBehaviour
 
     void Transition(State newState)
     {
-        Debug.Log("Transition!");
         //start transition
         InTransition = true;
         //transitioning
@@ -60,7 +56,7 @@ public abstract class StateMachine : MonoBehaviour
 
     private void Update()
     {
-        //simulate Update in States with 'tick'
+        //checks for state
         if (CurrentState !=null && !InTransition)
         {
             CurrentState.Update();

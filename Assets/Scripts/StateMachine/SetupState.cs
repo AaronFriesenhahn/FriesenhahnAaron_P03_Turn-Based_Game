@@ -16,7 +16,14 @@ public class SetupState : TurnBasedGameState
         Debug.Log("Creating " + _numberOfPawns + " pawns.");
         //CAN'T change state while still in Enter()/Exit() transition!
         //DON'T put ChangeStat<> here.
+
+        //Have as a main menu State as well?
+        //If so, add public void to set _activated to false (this will be called from a button)
+        //instead of having it be set here
         _activated = false;
+
+        //Have the camera moving up and down the field?
+
     }
 
     public override void Update()
@@ -33,4 +40,9 @@ public class SetupState : TurnBasedGameState
         _activated = false;
         Debug.Log("Setup: Exiting...");
     }
+
+    
+
+
+
 }
