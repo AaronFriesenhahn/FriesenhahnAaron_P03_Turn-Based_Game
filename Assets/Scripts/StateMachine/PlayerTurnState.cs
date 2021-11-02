@@ -8,6 +8,9 @@ public class PlayerTurnState : TurnBasedGameState
     [SerializeField] Text _playerTurnTextUI = null;
     [SerializeField] Button _playerEndTurnButton = null;
 
+    [SerializeField] Button _TempPlayerWinButton = null;
+    [SerializeField] Button _TempPlayerLoseButton = null;
+
     int _playerTurnCount = 0;
 
     public override void Enter()
@@ -15,6 +18,11 @@ public class PlayerTurnState : TurnBasedGameState
         Debug.Log("Player Turn: ...Entering");
         _playerTurnTextUI.gameObject.SetActive(true);
         _playerEndTurnButton.gameObject.SetActive(true);
+
+        //--------temporary--------
+        _TempPlayerWinButton.gameObject.SetActive(true);
+        _TempPlayerLoseButton.gameObject.SetActive(true);
+        //--------------------------
 
         _playerTurnCount++;
         _playerTurnTextUI.text = "Player Turn: " + _playerTurnCount.ToString();
@@ -28,6 +36,12 @@ public class PlayerTurnState : TurnBasedGameState
     {
         _playerTurnTextUI.gameObject.SetActive(false);
         _playerEndTurnButton.gameObject.SetActive(false);
+
+        //--------temporary--------
+        _TempPlayerWinButton.gameObject.SetActive(false);
+        _TempPlayerLoseButton.gameObject.SetActive(false);
+        //--------------------------
+
         //unhook from events
         StateMachine.Input.PressedConfirm -= OnPressedConfirm;
         Debug.Log("Player Turn: Exiting...");

@@ -62,6 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Common\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Common\SceneController.cs" />
+    <Compile Include="Assets\Scripts\PawnScript.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameSM.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Common\StateMachine\State.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Assets\Scripts\StateMachine\Controllers\TurnBasedGameUIController.cs" />
     <Compile Include="Assets\Scripts\StateMachine\EnemyTurnState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\LoseState.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PauseFunction.cs" />
     <Compile Include="Assets\Scripts\StateMachine\PlayerTurnState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\WinState.cs" />
