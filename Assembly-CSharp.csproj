@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Common\GameManager.cs" />
     <Compile Include="Assets\Scripts\Common\SceneController.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\MousePosition3d.cs" />
     <Compile Include="Assets\Scripts\PawnScript.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameSM.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameState.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Scripts\StateMachine\PlayerTurnState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\WinState.cs" />
+    <Compile Include="Assets\Scripts\TileScript.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/aaron/Desktop/UnityProjects/Fall2021/Scripting for Games 2/FriesenhahnAaron_P03_Turn-Based_Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

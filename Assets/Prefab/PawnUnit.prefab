@@ -119,7 +119,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2701835190932761466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8897256469972819385}
+        m_MethodName: SetMovingTrue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8897256469972819385}
+        m_MethodName: SetAttackingFalse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &2595709098870839789
@@ -322,7 +344,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6661159860613094557}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8897256469972819385}
+        m_MethodName: SetAttackingTrue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8897256469972819385}
+        m_MethodName: SetMovingFalse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &7316429860243803944
@@ -424,7 +468,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &7891862555971827527
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,9 +481,10 @@ GameObject:
   - component: {fileID: 7168797781399174846}
   - component: {fileID: 8019628973483331222}
   - component: {fileID: 4927484676482196744}
+  - component: {fileID: 8897256469972819385}
   m_Layer: 0
   m_Name: PawnUnit
-  m_TagString: Untagged
+  m_TagString: PlayerPawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -518,6 +563,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8897256469972819385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7891862555971827527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12af09674b7fc5469b97828e4d798c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 0}
+  _PlayerOptions: {fileID: 0}
+  _pause: {fileID: 0}
+  _normalMaterial: {fileID: 2100000, guid: bbfb497f2271aea4b937fa2637561ddb, type: 2}
+  _movement: 10
+  _attackDistance: 10
+  _gameManager: {fileID: 0}
+  _tiles: {fileID: 0}
+  Selected: 0
+  Moving: 0
+  Attacking: 0
+  ActionsTaken: 0
 --- !u!1 &8055191285539617627
 GameObject:
   m_ObjectHideFlags: 0

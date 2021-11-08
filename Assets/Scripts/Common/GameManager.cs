@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool _PlayerLost = false;
     [SerializeField] StateMachine _stateMachine;
     [SerializeField] PauseFunction _pause;
+    [SerializeField] public GameObject _pawnSelected;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,10 @@ public class GameManager : MonoBehaviour
             {
                 _pause.Pause();
             }
+        }
+        else
+        {
+            _pawnSelected = null;
         }
     }
 
