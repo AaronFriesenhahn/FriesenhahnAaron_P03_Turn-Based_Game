@@ -17,12 +17,16 @@ public class TileScript : MonoBehaviour
 
     float Distance;
 
+    Vector3 pawnHeight = new Vector3(0f, 1f, 0f);
+
     public GameObject _PawnOccupyingTileSpace;
 
     //test value
     //allows distance to be only calculated once,
     //should be reset to zero when movement is over for pawn
     public int x = 0;
+    //
+    //public bool _TileOccupiedByPawn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +38,7 @@ public class TileScript : MonoBehaviour
     void Update()
     {
         PawnSelected = _gameManager._pawnSelected;
-        //DetectPawnOnTile();
+        DetectPawnOnTile();
 
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
         {
@@ -78,7 +82,13 @@ public class TileScript : MonoBehaviour
                     else
                     {
                         _highlightCanvas.gameObject.SetActive(false);
+                        x = 0;
                     }
+                }
+                else
+                {
+                    _highlightCanvas.gameObject.SetActive(false);
+                    x = 0;
                 }
             }
         }
@@ -111,9 +121,36 @@ public class TileScript : MonoBehaviour
     public void DetectPawnOnTile()
     {
         //cast debug ray or whatever straight up to detect an object
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out RaycastHit raycastHit))
+        {
+            Debug.Log(raycastHit.collider + " was hit by raycast");
+            _PawnOccupyingTileSpace = raycastHit.collider.gameObject;
+        }
+        else
+        {
+            _PawnOccupyingTileSpace = null;
+        }
     }
 
-    public void OnMouseOver()
+    //public void OnMouseOver()
+    //{
+    //    //if a tile is within moving distance
+    //    if (_highlightCanvas.gameObject.activeSelf == true)
+    //    {
+    //        if (_gameManager._pawnSelected != null)
+    //        {
+    //            if (_gameManager._pawnSelected.GetComponent<PawnScript>().Moving == true)
+    //            {
+    //                if (Input.GetMouseButtonDown(0))
+    //                {
+    //                    _gameManager._pawnSelected.transform.position = gameObject.transform.position + pawnHeight;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    public void HitByRay()
     {
         //if a tile is within moving distance
         if (_highlightCanvas.gameObject.activeSelf == true)
@@ -124,7 +161,7 @@ public class TileScript : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        _gameManager._pawnSelected.transform.position = gameObject.transform.position;
+                        _gameManager._pawnSelected.transform.position = gameObject.transform.position + pawnHeight;
                     }
                 }
             }

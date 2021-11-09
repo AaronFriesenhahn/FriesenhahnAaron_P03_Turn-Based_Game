@@ -14,13 +14,12 @@ public class EnemyTurnState : TurnBasedGameState
     {
         Debug.Log("Enemy Turn: ...Enter");
         EnemyTurnBegan?.Invoke();
-
-        StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
     }
 
     public override void Exit()
     {
         Debug.Log("Enemy Turn: Exit...");
+        StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
     }
 
     IEnumerator EnemyThinkingRoutine(float pauseDuration)

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Common\SceneController.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\MousePosition3d.cs" />
+    <Compile Include="Assets\Scripts\MouseRayCast.cs" />
     <Compile Include="Assets\Scripts\PawnScript.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameSM.cs" />
     <Compile Include="Assets\Scripts\StateMachine\Base\TurnBasedGameState.cs" />
