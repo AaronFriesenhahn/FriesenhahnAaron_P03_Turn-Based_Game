@@ -11,23 +11,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] PauseFunction _pause;
     [SerializeField] public GameObject _pawnSelected;
 
+    [SerializeField] GameObject[] _enemyTeam;
+    [SerializeField] GameObject[] _playerTeam;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _enemyTeam = GameObject.FindGameObjectsWithTag("EnemyPawn");
+        _playerTeam = GameObject.FindGameObjectsWithTag("PlayerPawn");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_PlayerWon == true)
-        {
-            _stateMachine.ChangeState<WinState>();
-        }
-        else if (_PlayerLost == true)
-        {
-            _stateMachine.ChangeState<LoseState>();
-        }
+        DetectWinLoseState();
+        TrackEnemyandPlayerPawns();
 
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
         {
@@ -39,6 +37,33 @@ public class GameManager : MonoBehaviour
         else
         {
             _pawnSelected = null;
+        }
+    }
+
+    public void TrackEnemyandPlayerPawns()
+    {
+        _enemyTeam = GameObject.FindGameObjectsWithTag("EnemyPawn");
+        _playerTeam = GameObject.FindGameObjectsWithTag("PlayerPawn");
+        if (_enemyTeam.Length == 0)
+        {
+            _PlayerWon = true;
+            Debug.Log("PlayerWins?");
+        }
+        else if (_playerTeam.Length == 0)
+        {
+            _PlayerLost = true;
+        }
+    }
+
+    public void DetectWinLoseState()
+    {
+        if (_PlayerWon == true)
+        {
+            _stateMachine.ChangeState<WinState>();
+        }
+        else if (_PlayerLost == true)
+        {
+            _stateMachine.ChangeState<LoseState>();
         }
     }
 

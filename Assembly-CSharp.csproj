@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Common\GameManager.cs" />
     <Compile Include="Assets\Scripts\Common\SceneController.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\StateMachine\SetupState.cs" />
     <Compile Include="Assets\Scripts\StateMachine\WinState.cs" />
     <Compile Include="Assets\Scripts\TileScript.cs" />
+    <Compile Include="Assets\Scripts\TriggerBox.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/aaron/Desktop/UnityProjects/Fall2021/Scripting for Games 2/FriesenhahnAaron_P03_Turn-Based_Game/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -11,6 +11,7 @@ public class PawnScript : MonoBehaviour
     [SerializeField] Material _normalMaterial;
     [SerializeField] public int _movement = 10;
     [SerializeField] public int _attackDistance = 5;
+    [SerializeField] public int _TilesToMove = 2;
 
     [SerializeField] GameManager _gameManager;
     [SerializeField] TileScript _tiles;
@@ -23,15 +24,18 @@ public class PawnScript : MonoBehaviour
     public bool Attacking = false;
     public bool Hovering = true;
     //determies if a pawn can be selected again.
-    public bool ActionsTaken = false;
-    //determies if a pawn can be selected again.
     public bool HasMoved = false;
     public bool HasAttacked = false;
+
+    public bool CanMoveAfterAttacking = false;
+
+    int _resetAttack;
+    int _resetTilesToMove;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _resetTilesToMove = _TilesToMove;
     }
 
     // Update is called once per frame
@@ -43,16 +47,56 @@ public class PawnScript : MonoBehaviour
             {
                 if (Selected == true)
                 {
+                    //DetectObject();
+
                     if (_PlayerOptions != null)
                     {
                         _PlayerOptions.gameObject.SetActive(true);
                         if (HasAttacked == true)
                         {
+                            if(CanMoveAfterAttacking == false)
+                            {
+                                _TilesToMove = 0;
+                            }
+
                             _attackButton.gameObject.SetActive(false);
+                            Debug.Log("has attacked");
+                            if(_TilesToMove > 0)
+                            {
+                                _moveButton.gameObject.SetActive(true);
+                            }
+                            else
+                            {
+                                _moveButton.gameObject.SetActive(false);
+                            }
+                        }
+                        else
+                        {
+                            if (Attacking == true)
+                            {
+                                _moveButton.gameObject.SetActive(false);
+                                Debug.Log("Move button gone. attacking");
+                            }
+                            else if (Attacking == false)
+                            {
+                                _moveButton.gameObject.SetActive(true);
+                            }
                         }
                         if (HasMoved == true)
                         {
                             _moveButton.gameObject.SetActive(false);
+                            Debug.Log("Move button gone! Hasmoved");
+                        }
+                        else
+                        {
+                            if (Moving == true)
+                            {
+                                _attackButton.gameObject.SetActive(false);
+                            }
+                            else if (Moving == false && HasAttacked == false)
+                            {
+                                _attackButton.gameObject.SetActive(true);
+                            }
                         }
                     }
                     //change material of pawn to blue while selected
@@ -97,16 +141,17 @@ public class PawnScript : MonoBehaviour
             if (_PlayerOptions != null)
             {
                 _PlayerOptions.gameObject.SetActive(false);
+                _moveButton.GetComponentInChildren<Text>().text = "Move";
+                _attackButton.GetComponentInChildren<Text>().text = "Attack";
             }
             Moving = false;
             Attacking = false;
             Selected = false;
             HasAttacked = false;
             HasMoved = false;
-            ActionsTaken = false;
+            _TilesToMove = _resetTilesToMove;
+
         }
-
-
 
         //if hovering over something that is not the pawn, un select it
         //if (Hovering == false && Selected == true)
@@ -173,6 +218,7 @@ public class PawnScript : MonoBehaviour
             Moving = false;
             //return pawn to original position if hasmoved = false
             _moveButton.GetComponentInChildren<Text>().text = "Move";
+
         }
     }
 
@@ -224,6 +270,36 @@ public class PawnScript : MonoBehaviour
         }
     }
 
+    public void Attacked()
+    {
+        //do vfx stuff
+        StartCoroutine(PauseBeforeDestroyingObject());
+    }
+
+    IEnumerator PauseBeforeDestroyingObject()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
+    //public void DetectObject()
+    //{
+    //    //cast debug ray or whatever straight up to detect an object
+    //    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit raycastHit))
+    //    {
+    //       Debug.Log(raycastHit.collider + " was hit by raycast in front of player.");
+    //       ObjectInFront = raycastHit.collider.gameObject;
+    //    }
+    //    //left ray
+    //    //right ray
+    //    //down ray
+
+    //    else
+    //    {
+    //        ObjectInFront = null;
+    //    }
+    //}
+
     public void HitByRay()
     {
         Debug.Log("I was hit by a ray");
@@ -244,10 +320,20 @@ public class PawnScript : MonoBehaviour
                 //if mouse is right clicked while on pawn, change bool Selected to false
                 else if (Input.GetMouseButtonDown(1))
                 {
-                    Selected = false;
-                    Moving = false;
-                    Attacking = false;
-                    _gameManager._pawnSelected = null;
+                    if (HasAttacked == true || HasMoved == true)
+                    {
+                        Selected = false;
+                        Moving = false;
+                        Attacking = false;
+                        _gameManager._pawnSelected = null;
+                    }
+                    else
+                    {
+                        Selected = false;
+                        Moving = false;
+                        Attacking = false;
+                        _gameManager._pawnSelected = null;
+                    }
                 }
             }
         }
