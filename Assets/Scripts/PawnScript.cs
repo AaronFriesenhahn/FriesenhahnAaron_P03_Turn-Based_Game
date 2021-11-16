@@ -32,6 +32,12 @@ public class PawnScript : MonoBehaviour
     int _resetAttack;
     int _resetTilesToMove;
 
+    //enemy Information
+    public GameObject ObjectToNorth = null;
+    public GameObject ObjectToEast = null;
+    public GameObject ObjectToSouth = null;
+    public GameObject ObjectToWest = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +47,12 @@ public class PawnScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //for enemy pawns only
+        if (_stateMachine.CurrentState == _stateMachine.GetComponent<EnemyTurnState>())
+        {
+            DetectObject();
+        }
+
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
         {
             if (_pause.Paused == false)
@@ -282,23 +294,53 @@ public class PawnScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //public void DetectObject()
-    //{
-    //    //cast debug ray or whatever straight up to detect an object
-    //    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit raycastHit))
-    //    {
-    //       Debug.Log(raycastHit.collider + " was hit by raycast in front of player.");
-    //       ObjectInFront = raycastHit.collider.gameObject;
-    //    }
-    //    //left ray
-    //    //right ray
-    //    //down ray
+    public void DetectObject()
+    {
+        //cast debug ray or whatever straight up to detect an object
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit raycastHit))
+        {
+            if(raycastHit.collider.gameObject.tag == "PlayerPawn")
+            {
+                Debug.Log(raycastHit.collider + " was hit by raycast north of player.");
+                ObjectToNorth = raycastHit.collider.gameObject;
+            }
 
-    //    else
-    //    {
-    //        ObjectInFront = null;
-    //    }
-    //}
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out raycastHit))
+        {
+            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            {
+                Debug.Log(raycastHit.collider + " was hit by raycast east of player.");
+                ObjectToEast = raycastHit.collider.gameObject;
+            }
+
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out raycastHit))
+        {
+            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            {
+                Debug.Log(raycastHit.collider + " was hit by raycast south of player.");
+                ObjectToSouth = raycastHit.collider.gameObject;
+            }
+
+        }
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out raycastHit))
+        {
+            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            {
+                Debug.Log(raycastHit.collider + " was hit by raycast west of player.");
+                ObjectToWest = raycastHit.collider.gameObject;
+            }
+
+        }
+        else
+        {
+            ObjectToNorth = null;
+            ObjectToEast = null;
+            ObjectToSouth = null;
+            ObjectToWest = null;
+        }
+    }
 
     public void HitByRay()
     {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerPawn
   - EnemyPawn
+  - Tile
   layers:
   - Default
   - TransparentFX

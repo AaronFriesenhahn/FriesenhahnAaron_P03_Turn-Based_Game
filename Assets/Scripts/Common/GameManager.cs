@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            _pawnSelected = null;
+            //_pawnSelected = null;
         }
     }
 
