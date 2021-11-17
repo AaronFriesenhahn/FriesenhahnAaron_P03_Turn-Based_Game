@@ -14,6 +14,9 @@ public class EnemyTurnState : TurnBasedGameState
     {
         Debug.Log("Enemy Turn: ...Enter");
         EnemyTurnBegan?.Invoke();
+
+        //temporary
+        //StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
     }
 
     public override void Exit()

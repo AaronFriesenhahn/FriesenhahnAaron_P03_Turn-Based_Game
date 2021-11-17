@@ -44,176 +44,85 @@ public class TileScript : MonoBehaviour
         PawnSelected = _gameManager._pawnSelected;
         DetectPawnOnTile();
 
-        //players turn
-        if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
+        //if a pawn can move
+        if (_gameManager._pawnSelected != null)
         {
-            //if a pawn can move
-            if(_gameManager._pawnSelected != null)
+            if (_gameManager._pawnSelected.GetComponent<PawnScript>()._TilesToMove > 0)
             {
-                if (_gameManager._pawnSelected.GetComponent<PawnScript>()._TilesToMove > 0)
+                //player has selected a pawn
+                if (_gameManager._pawnSelected != null)
                 {
-                    //player has selected a pawn
-                    if (_gameManager._pawnSelected != null)
+                    if (_gameManager._pawnSelected.GetComponent<PawnScript>().Moving == true)
                     {
-                        if (_gameManager._pawnSelected.GetComponent<PawnScript>().Moving == true)
+                        //if a pawn is on a tile already, don't show it is available
+                        if (_PawnOccupyingTileSpace != null)
                         {
-                            //if a pawn is on a tile already, don't show it is available
-                            if (_PawnOccupyingTileSpace != null)
-                            {
-                                _movementCanvas.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.Log("Checking move distance.");
-                                CalculateDistanceBetweenObjects(PawnSelected);
-                                //check distance of tile from pawn and show highlightCanvas
-                                //if (Distance <= PawnSelected.GetComponent<PawnScript>()._movement)
-                                if (Distance <= distanceFromPawn)
-                                {
-                                    _movementCanvas.gameObject.SetActive(true);
-                                }
-                                //else if (Distance > PawnSelected.GetComponent<PawnScript>()._movement)
-                                else if (Distance > distanceFromPawn)
-                                {
-                                    _movementCanvas.gameObject.SetActive(false);
-                                }
-                            }
-                        }
-                        else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true)
-                        {
-                            Debug.Log("Checking attack distance.");
-                            CalculateDistanceBetweenObjects(PawnSelected);
-                            //check attack distance
-                            if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
-                            {
-                                _attackCanvas.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                _attackCanvas.gameObject.SetActive(false);
-                                x = 0;
-                            }
+                            _movementCanvas.gameObject.SetActive(false);
                         }
                         else
                         {
-                            _movementCanvas.gameObject.SetActive(false);
+                            Debug.Log("Checking move distance.");
+                            CalculateDistanceBetweenObjects(PawnSelected);
+                            //check distance of tile from pawn and show highlightCanvas
+                            //if (Distance <= PawnSelected.GetComponent<PawnScript>()._movement)
+                            if (Distance <= distanceFromPawn)
+                            {
+                                _movementCanvas.gameObject.SetActive(true);
+                            }
+                            //else if (Distance > PawnSelected.GetComponent<PawnScript>()._movement)
+                            else if (Distance > distanceFromPawn)
+                            {
+                                _movementCanvas.gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true)
+                    {
+                        Debug.Log("Checking attack distance.");
+                        CalculateDistanceBetweenObjects(PawnSelected);
+                        //check attack distance
+                        if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
+                        {
+                            _attackCanvas.gameObject.SetActive(true);
+                        }
+                        else
+                        {
                             _attackCanvas.gameObject.SetActive(false);
                             x = 0;
                         }
                     }
-                }
-                else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true && _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked == false)
-                {
-                    Debug.Log("Checking attack distance.");
-                    CalculateDistanceBetweenObjects(PawnSelected);
-                    //check attack distance
-                    if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
-                    {
-                        _attackCanvas.gameObject.SetActive(true);
-                    }
                     else
                     {
+                        _movementCanvas.gameObject.SetActive(false);
                         _attackCanvas.gameObject.SetActive(false);
                         x = 0;
                     }
                 }
-                else
-                {
-                    _movementCanvas.gameObject.SetActive(false);
-                    _attackCanvas.gameObject.SetActive(false);
-                    x = 0;
-                }
             }
-        }
-        //enemy's turn
-        else if (_stateMachine.CurrentState == _stateMachine.GetComponent<EnemyTurnState>())
-        {
-            //if a pawn can move
-            if (_gameManager._pawnSelected != null)
+            else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true && _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked == false)
             {
-                if (_gameManager._pawnSelected.GetComponent<PawnScript>()._TilesToMove > 0)
+                Debug.Log("Checking attack distance.");
+                CalculateDistanceBetweenObjects(PawnSelected);
+                //check attack distance
+                if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
                 {
-                    //player has selected a pawn
-                    if (_gameManager._pawnSelected != null)
-                    {
-                        if (_gameManager._pawnSelected.GetComponent<PawnScript>().Moving == true)
-                        {
-                            //if a pawn is on a tile already, don't show it is available
-                            if (_PawnOccupyingTileSpace != null)
-                            {
-                                _movementCanvas.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                Debug.Log("Checking move distance.");
-                                CalculateDistanceBetweenObjects(PawnSelected);
-                                //check distance of tile from pawn and show highlightCanvas
-                                //if (Distance <= PawnSelected.GetComponent<PawnScript>()._movement)
-                                if (Distance <= distanceFromPawn)
-                                {
-                                    _movementCanvas.gameObject.SetActive(true);
-                                }
-                                //else if (Distance > PawnSelected.GetComponent<PawnScript>()._movement)
-                                else if (Distance > distanceFromPawn)
-                                {
-                                    _movementCanvas.gameObject.SetActive(false);
-                                }
-                            }
-                        }
-                        else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true)
-                        {
-                            Debug.Log("Checking attack distance.");
-                            CalculateDistanceBetweenObjects(PawnSelected);
-                            //check attack distance
-                            if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
-                            {
-                                _attackCanvas.gameObject.SetActive(true);
-                            }
-                            else
-                            {
-                                _attackCanvas.gameObject.SetActive(false);
-                                x = 0;
-                            }
-                        }
-                        else
-                        {
-                            _movementCanvas.gameObject.SetActive(false);
-                            _attackCanvas.gameObject.SetActive(false);
-                            x = 0;
-                        }
-                    }
-                }
-                else if (_gameManager._pawnSelected.GetComponent<PawnScript>().Attacking == true && _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked == false)
-                {
-                    Debug.Log("Checking attack distance.");
-                    CalculateDistanceBetweenObjects(PawnSelected);
-                    //check attack distance
-                    if (Distance <= PawnSelected.GetComponent<PawnScript>()._attackDistance)
-                    {
-                        _attackCanvas.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        _attackCanvas.gameObject.SetActive(false);
-                        x = 0;
-                    }
+                    _attackCanvas.gameObject.SetActive(true);
                 }
                 else
                 {
-                    _movementCanvas.gameObject.SetActive(false);
                     _attackCanvas.gameObject.SetActive(false);
                     x = 0;
                 }
             }
-        }
-        else
-        {
-            _movementCanvas.gameObject.SetActive(false);
-            _attackCanvas.gameObject.SetActive(false);
-            x = 0;
+            else
+            {
+                _movementCanvas.gameObject.SetActive(false);
+                _attackCanvas.gameObject.SetActive(false);
+                x = 0;
+            }
         }
 
-        if(_gameManager._pawnSelected == null)
+        if (_gameManager._pawnSelected == null)
         {
             _movementCanvas.gameObject.SetActive(false);
             _attackCanvas.gameObject.SetActive(false);

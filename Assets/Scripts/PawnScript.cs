@@ -47,12 +47,6 @@ public class PawnScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //for enemy pawns only
-        if (_stateMachine.CurrentState == _stateMachine.GetComponent<EnemyTurnState>())
-        {
-            DetectObject();
-        }
-
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
         {
             if (_pause.Paused == false)
@@ -66,14 +60,14 @@ public class PawnScript : MonoBehaviour
                         _PlayerOptions.gameObject.SetActive(true);
                         if (HasAttacked == true)
                         {
-                            if(CanMoveAfterAttacking == false)
+                            if (CanMoveAfterAttacking == false)
                             {
                                 _TilesToMove = 0;
                             }
 
                             _attackButton.gameObject.SetActive(false);
                             Debug.Log("has attacked");
-                            if(_TilesToMove > 0)
+                            if (_TilesToMove > 0)
                             {
                                 _moveButton.gameObject.SetActive(true);
                             }
@@ -297,41 +291,54 @@ public class PawnScript : MonoBehaviour
     public void DetectObject()
     {
         //cast debug ray or whatever straight up to detect an object
+        Debug.DrawRay(transform.position, Vector3.forward, Color.green);
+        Debug.DrawRay(transform.position, Vector3.right, Color.red);
+        Debug.DrawRay(transform.position, Vector3.back, Color.blue);
+        Debug.DrawRay(transform.position, Vector3.left, Color.yellow);
+
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit raycastHit))
         {
-            if(raycastHit.collider.gameObject.tag == "PlayerPawn")
+            if (raycastHit.collider.gameObject != this.gameObject)
             {
-                Debug.Log(raycastHit.collider + " was hit by raycast north of player.");
-                ObjectToNorth = raycastHit.collider.gameObject;
+                if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+                {
+                    Debug.Log(raycastHit.collider + " was hit by raycast north of player.");
+                    ObjectToNorth = raycastHit.collider.gameObject;
+                }
             }
-
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out raycastHit))
         {
-            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            if (raycastHit.collider.gameObject != this.gameObject)
             {
-                Debug.Log(raycastHit.collider + " was hit by raycast east of player.");
-                ObjectToEast = raycastHit.collider.gameObject;
+                if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+                {
+                    Debug.Log(raycastHit.collider + " was hit by raycast east of player.");
+                    ObjectToEast = raycastHit.collider.gameObject;
+                }
             }
-
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out raycastHit))
         {
-            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            if (raycastHit.collider.gameObject != this.gameObject)
             {
-                Debug.Log(raycastHit.collider + " was hit by raycast south of player.");
-                ObjectToSouth = raycastHit.collider.gameObject;
+                if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+                {
+                    Debug.Log(raycastHit.collider + " was hit by raycast south of player.");
+                    ObjectToSouth = raycastHit.collider.gameObject;
+                }
             }
-
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out raycastHit))
         {
-            if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+            if (raycastHit.collider.gameObject != this.gameObject)
             {
-                Debug.Log(raycastHit.collider + " was hit by raycast west of player.");
-                ObjectToWest = raycastHit.collider.gameObject;
+                if (raycastHit.collider.gameObject.tag == "PlayerPawn")
+                {
+                    Debug.Log(raycastHit.collider + " was hit by raycast west of player.");
+                    ObjectToWest = raycastHit.collider.gameObject;
+                }
             }
-
         }
         else
         {
@@ -348,37 +355,40 @@ public class PawnScript : MonoBehaviour
         //if on Player Turn and not paused while mouse is over pawn, change to a highlighted color
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<PlayerTurnState>())
         {
-            if (_pause.Paused == false && gameObject.tag == "PlayerPawn")
-            {
-                var PawnRenderer = gameObject.GetComponent<Renderer>();
-                PawnRenderer.material.color = Color.yellow;
 
-                //if mouse is clicked while on pawn, change bool Selected to true
-                if (Input.GetMouseButtonDown(0))
+        }
+
+        if (_pause.Paused == false && gameObject.tag == "PlayerPawn")
+        {
+            var PawnRenderer = gameObject.GetComponent<Renderer>();
+            PawnRenderer.material.color = Color.yellow;
+
+            //if mouse is clicked while on pawn, change bool Selected to true
+            if (Input.GetMouseButtonDown(0))
+            {
+                Selected = true;
+                _gameManager._pawnSelected = gameObject;
+            }
+            //if mouse is right clicked while on pawn, change bool Selected to false
+            else if (Input.GetMouseButtonDown(1))
+            {
+                if (HasAttacked == true || HasMoved == true)
                 {
-                    Selected = true;
-                    _gameManager._pawnSelected = gameObject;
+                    Selected = false;
+                    Moving = false;
+                    Attacking = false;
+                    _gameManager._pawnSelected = null;
                 }
-                //if mouse is right clicked while on pawn, change bool Selected to false
-                else if (Input.GetMouseButtonDown(1))
+                else
                 {
-                    if (HasAttacked == true || HasMoved == true)
-                    {
-                        Selected = false;
-                        Moving = false;
-                        Attacking = false;
-                        _gameManager._pawnSelected = null;
-                    }
-                    else
-                    {
-                        Selected = false;
-                        Moving = false;
-                        Attacking = false;
-                        _gameManager._pawnSelected = null;
-                    }
+                    Selected = false;
+                    Moving = false;
+                    Attacking = false;
+                    _gameManager._pawnSelected = null;
                 }
             }
         }
+
         Hovering = true;
     }
 }

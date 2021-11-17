@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] StateMachine _stateMachine;
     [SerializeField] PauseFunction _pause;
     [SerializeField] public GameObject _pawnSelected;
+    [SerializeField] public GameObject _enemyPawnSelected;
+
 
     [SerializeField] GameObject[] _enemyTeam;
     [SerializeField] GameObject[] _playerTeam;

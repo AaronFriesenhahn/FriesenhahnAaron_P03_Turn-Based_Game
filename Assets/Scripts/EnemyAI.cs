@@ -122,6 +122,7 @@ public class EnemyAI : MonoBehaviour
 
         if (pawnMovement != _enemyPawnToMove.GetComponent<PawnScript>()._TilesToMove)
         {
+            Debug.Log(_activeTiles.Count);
             //THIS SOMETIMES WORKS
             //pick a random tile to move pawn to
             if (c != 1 && _activeTiles.Count !=0)
@@ -134,29 +135,48 @@ public class EnemyAI : MonoBehaviour
             }
 
             //move pawn to chosen tile
-            _enemyPawnToMove.transform.position = _tileToMoveTo.transform.position + pawnHeight;
-            pawnMovement++;
+            if(_tileToMoveTo != null)
+            {
+                _enemyPawnToMove.transform.position = _tileToMoveTo.transform.position + pawnHeight;
+                pawnMovement++;
+            }
 
             //look for enemies, then destroy (end movement);
             if (_enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.tag == "PlayerPawn" && _enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth != null)
             {
-                Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.gameObject);
-                pawnMovement++;
+                float distance = Vector3.Distance(gameObject.transform.position, _enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.transform.position);
+                if (distance <= 5)
+                {
+                    Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.gameObject);
+                    pawnMovement++;
+                }
             }
             else if (_enemyPawnToMove.GetComponent<PawnScript>().ObjectToNorth.tag == "PlayerPawn" && _enemyPawnToMove.GetComponent<PawnScript>().ObjectToNorth != null)
             {
-                Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToNorth.gameObject);
-                pawnMovement++;
+                float distance = Vector3.Distance(gameObject.transform.position, _enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.transform.position);
+                if (distance <= 5)
+                {
+                    Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToNorth.gameObject);
+                    pawnMovement++;
+                }
             }
             else if (_enemyPawnToMove.GetComponent<PawnScript>().ObjectToWest.tag == "PlayerPawn" && _enemyPawnToMove.GetComponent<PawnScript>().ObjectToWest != null)
             {
-                Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToWest.gameObject);
-                pawnMovement++;
+                float distance = Vector3.Distance(gameObject.transform.position, _enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.transform.position);
+                if (distance <= 5)
+                {
+                    Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToWest.gameObject);
+                    pawnMovement++;
+                }
             }
             else if (_enemyPawnToMove.GetComponent<PawnScript>().ObjectToEast.tag == "PlayerPawn" && _enemyPawnToMove.GetComponent<PawnScript>().ObjectToEast != null)
             {
-                Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToEast.gameObject);
-                pawnMovement++;
+                float distance = Vector3.Distance(gameObject.transform.position, _enemyPawnToMove.GetComponent<PawnScript>().ObjectToSouth.transform.position);
+                if (distance <= 5)
+                {
+                    Destroy(_enemyPawnToMove.GetComponent<PawnScript>().ObjectToEast.gameObject);
+                    pawnMovement++;
+                }
             }
             else
             {
