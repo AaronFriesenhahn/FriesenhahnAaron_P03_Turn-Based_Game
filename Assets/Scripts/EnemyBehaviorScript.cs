@@ -17,6 +17,8 @@ public class EnemyBehaviorScript : MonoBehaviour
 
     Vector3 pawnHeight = new Vector3(0f, 1f, 0f);
 
+    [SerializeField] float _pauseDuration = 1f;
+
     int pickEnemyPawn = 0;
     int findTiles = 0;
     int findViableTiles = 0;
@@ -27,6 +29,7 @@ public class EnemyBehaviorScript : MonoBehaviour
     int enemyTurnOver = 0;
 
     int findClosestPlayerPawn = 0;
+    bool hasAttacked = false;
 
 
     // Start is called before the first frame update
@@ -50,9 +53,15 @@ public class EnemyBehaviorScript : MonoBehaviour
             //   allPawnsMove++;
             //}
 
+            //start enemy AI behavior (choose a pawn, move it to a random viable spot, then attack if a pawn is nearby)
             SelectRandomPawn();
 
+            //supposed to go through all of he pawns(hopefully)
+            //SelectEachPawn();
+
             //StartCoroutine(ExitTurn());
+
+            //reset variables
             if (enemyTurnOver == 0)
             {
                 pickEnemyPawn = 0;
@@ -60,6 +69,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 findViableTiles = 0;
                 moveToTile = 0;
                 allPawnsMove = 0;
+                findClosestPlayerPawn = 0;
                 enemyTurnOver++;
             }
             _enemyState.Exit();
@@ -83,6 +93,15 @@ public class EnemyBehaviorScript : MonoBehaviour
         }
         else
         {
+            FindViableTiles();
+        }
+    }
+
+    private void SelectEachPawn()
+    {
+        if(pickEnemyPawn < _enemyPawns.Length)
+        {
+            _enemyPawnToMove = _enemyPawns[pickEnemyPawn];
             FindViableTiles();
         }
     }
@@ -142,13 +161,52 @@ public class EnemyBehaviorScript : MonoBehaviour
     {
         _enemyPawnToMove.GetComponent<PawnScript>().DetectObject();
         //look for enemies, then destroy (end movement);
-        float distance = Vector3.Distance(_enemyPawnToMove.transform.position, _gameManager._playerTeam[findClosestPlayerPawn].transform.position);
-
-        if (distance < 6)
+        while (findClosestPlayerPawn < _gameManager._playerTeam.Length)
         {
-            if ()
-            findViableTiles++;
+            float distance = Vector3.Distance(_enemyPawnToMove.transform.position, _gameManager._playerTeam[findClosestPlayerPawn].transform.position);
+
+            if (distance < 6)
+            {
+                //if closest player pawn is south
+                if(_gameManager._playerTeam[findClosestPlayerPawn].transform.position.z < _enemyPawnToMove.transform.position.z)
+                {
+                    //attack
+                    Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
+                    hasAttacked = true;
+                }
+                //if closest player pawn is west
+                else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.x < _enemyPawnToMove.transform.position.x)
+                {
+                    //attack
+                    Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
+                    hasAttacked = true;
+                }
+                //if closest player pawn is east
+                else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.x > _enemyPawnToMove.transform.position.x)
+                {
+                    //attack
+                    Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
+                    hasAttacked = true;
+                }
+                //if closest player pawn is north
+                else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.z > _enemyPawnToMove.transform.position.z)
+                {
+                    //attack
+                    Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
+                    hasAttacked = true;
+                }                
+            }
+            if (hasAttacked == true)
+            {
+                findClosestPlayerPawn = _gameManager._playerTeam.Length;
+            }
+            findClosestPlayerPawn++;
         }
+
+        //send back to Pick next Pawn
+        pickEnemyPawn++;
+        WaitBeforePickingAgain();
+        //SelectEachPawn();
     }
 
     IEnumerator ExitTurn()
@@ -170,5 +228,18 @@ public class EnemyBehaviorScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         //AttackNearbyEnemy();
         StartCoroutine(ExitTurn());
+    }
+
+    public void WaitBeforePickingAgain()
+    {
+        if (_pauseDuration > 0)
+        {
+            _pauseDuration -= Time.deltaTime;
+        }
+        else
+        {
+            _pauseDuration = 1f;
+            SelectEachPawn();
+        }
     }
 }
