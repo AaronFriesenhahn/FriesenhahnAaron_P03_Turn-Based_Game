@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] GameObject[] _enemyTeam;
-    [SerializeField] GameObject[] _playerTeam;
+    [SerializeField] public GameObject[] _playerTeam;
 
     // Start is called before the first frame update
     void Start()

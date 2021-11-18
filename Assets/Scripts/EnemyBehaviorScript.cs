@@ -26,6 +26,8 @@ public class EnemyBehaviorScript : MonoBehaviour
 
     int enemyTurnOver = 0;
 
+    int findClosestPlayerPawn = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,21 +43,17 @@ public class EnemyBehaviorScript : MonoBehaviour
         {
             _enemyPawns = GameObject.FindGameObjectsWithTag("EnemyPawn");
 
-            //to move all of the enemy pawns
-            //while(allPawnsMove < _enemyPanws.Length())
+            //TODO Code to go through all of the pawns
+            //while (allPawnsMove < _enemyPawns.Length)
             //{
-
-            SelectRandomPawn();
-            //StartCoroutine(PawnMove());
-            FindViableTiles();
-            //currently broken(does not create an array for some reason)
-            TeleportSelectedPawntoRandomViableTile();
-            CheckForPawnToAttack();
-            //allPawnsMove++
+            //   SelectRandomPawn();
+            //   allPawnsMove++;
             //}
 
+            SelectRandomPawn();
+
             //StartCoroutine(ExitTurn());
-            if(enemyTurnOver == 0)
+            if (enemyTurnOver == 0)
             {
                 pickEnemyPawn = 0;
                 findTiles = 0;
@@ -71,27 +69,7 @@ public class EnemyBehaviorScript : MonoBehaviour
             enemyTurnOver = 0;
         }
     }
-
-    private void TeleportSelectedPawntoRandomViableTile()
-    {
-        //teleport chosen pawn to random viable tile
-        if (moveToTile != 1)
-        {
-            int randompick2 = Random.Range(0, _ViableTiles.Length);
-            _tileToMoveTo = _ViableTiles[randompick2];
-            if(_tileToMoveTo == null)
-            {
-                moveToTile = 0;
-                TeleportSelectedPawntoRandomViableTile();
-            }
-            else
-            {
-                _enemyPawnToMove.transform.position = _tileToMoveTo.transform.position + pawnHeight;
-                moveToTile++;
-            }
-
-        }
-    }
+    
 
     private void SelectRandomPawn()
     {
@@ -103,13 +81,15 @@ public class EnemyBehaviorScript : MonoBehaviour
             Debug.Log(_enemyPawnToMove);
             pickEnemyPawn++;
         }
+        else
+        {
+            FindViableTiles();
+        }
     }
 
     private void FindViableTiles()
     {
         //find viable tiles within chosen pawn
-
-
         //make an array of viable tiles
         while (findTiles < _Tiles.Length)
         {
@@ -120,14 +100,55 @@ public class EnemyBehaviorScript : MonoBehaviour
                 _ViableTiles[findViableTiles] = _Tiles[findTiles];
                 findViableTiles++;
             }
+            else
+            {
+                _ViableTiles[findViableTiles] = null;
+                findViableTiles++;
+            }
             findTiles++;
+        }
+
+        if (findTiles == _Tiles.Length)
+        {
+            TeleportSelectedPawntoRandomViableTile();
+        }
+    }
+
+    private void TeleportSelectedPawntoRandomViableTile()
+    {
+        //teleport chosen pawn to random viable tile
+        if (moveToTile != 1)
+        {
+            int randompick2 = Random.Range(0, _ViableTiles.Length);
+            _tileToMoveTo = _ViableTiles[randompick2];
+            if (_tileToMoveTo == null)
+            {
+                moveToTile = 0;
+                TeleportSelectedPawntoRandomViableTile();
+            }
+            else
+            {
+                _enemyPawnToMove.transform.position = _tileToMoveTo.transform.position + pawnHeight;
+                moveToTile++;
+            }
+        }
+        else
+        {
+            CheckForPawnToAttack();
         }
     }
 
     private void CheckForPawnToAttack()
     {
         _enemyPawnToMove.GetComponent<PawnScript>().DetectObject();
+        //look for enemies, then destroy (end movement);
+        float distance = Vector3.Distance(_enemyPawnToMove.transform.position, _gameManager._playerTeam[findClosestPlayerPawn].transform.position);
 
+        if (distance < 6)
+        {
+            if ()
+            findViableTiles++;
+        }
     }
 
     IEnumerator ExitTurn()

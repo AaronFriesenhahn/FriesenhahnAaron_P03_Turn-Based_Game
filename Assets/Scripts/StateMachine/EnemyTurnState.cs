@@ -8,7 +8,7 @@ public class EnemyTurnState : TurnBasedGameState
     public static event Action EnemyTurnBegan;
     public static event Action EnemyTurnEnded;
 
-    [SerializeField] float _pauseDuration = 1.5f;
+    [SerializeField] float _pauseDuration = 3f;
 
     public override void Enter()
     {
@@ -22,8 +22,24 @@ public class EnemyTurnState : TurnBasedGameState
     public override void Exit()
     {
         Debug.Log("Enemy Turn: Exit...");
-        StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+        //StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+        PauseBeforeExit();
     }
+
+    public void PauseBeforeExit()
+    {
+        if (_pauseDuration > 0)
+        {
+            _pauseDuration -= Time.deltaTime;
+        }
+        else
+        {
+            EnemyTurnEnded?.Invoke();
+            StateMachine.ChangeState<PlayerTurnState>();
+            _pauseDuration = 3f;
+        }
+    }
+
 
     IEnumerator EnemyThinkingRoutine(float pauseDuration)
     {
