@@ -1,15 +1,22 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - CameraMovement
+    - EnemyBehaviorScript
     - EnemyTurnState
     - GameManager
     - InputController
     - LoseState
+    - MousePosition3d
+    - MouseRayCast
+    - MusicAndAudioController
+    - MusicPlayerScript
     - PauseFunction
     - PawnScript
     - PlayerTurnState
     - SceneController
     - SetupState
+    - TileScript
     - TurnBasedGameSM
     - TurnBasedGameUIController
     - WinState
@@ -50,11 +57,17 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
@@ -71,35 +84,49 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9840}
     - Class: 114
-      Script: {instanceID: 9988}
+      Script: {instanceID: 9854}
     - Class: 114
-      Script: {instanceID: 10210}
+      Script: {instanceID: 9948}
     - Class: 114
-      Script: {instanceID: 10272}
+      Script: {instanceID: 9992}
     - Class: 114
-      Script: {instanceID: 10356}
+      Script: {instanceID: 9996}
     - Class: 114
-      Script: {instanceID: 10462}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10544}
+      Script: {instanceID: 10280}
+    - Class: 114
+      Script: {instanceID: 10364}
+    - Class: 114
+      Script: {instanceID: 10470}
     - Class: 114
       Script: {instanceID: 10552}
     - Class: 114
-      Script: {instanceID: 10702}
+      Script: {instanceID: 10560}
     - Class: 114
-      Script: {instanceID: 10884}
+      Script: {instanceID: 10578}
     - Class: 114
-      Script: {instanceID: 10996}
+      Script: {instanceID: 10712}
     - Class: 114
-      Script: {instanceID: 11280}
+      Script: {instanceID: 10854}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 10896}
     - Class: 114
-      Script: {instanceID: 11318}
+      Script: {instanceID: 11000}
     - Class: 114
-      Script: {instanceID: 11342}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 18610}
+      Script: {instanceID: 11294}
+    - Class: 114
+      Script: {instanceID: 11300}
+    - Class: 114
+      Script: {instanceID: 11332}
+    - Class: 114
+      Script: {instanceID: 11356}
+    - Class: 114
+      Script: {instanceID: 13050}
+    - Class: 114
+      Script: {instanceID: 13100}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -125,11 +152,25 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 21
       Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -142,15 +183,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9840}
     - Class: 114
-      Script: {instanceID: 10210}
+      Script: {instanceID: 10218}
     - Class: 114
-      Script: {instanceID: 10552}
+      Script: {instanceID: 10364}
     - Class: 114
-      Script: {instanceID: 10996}
+      Script: {instanceID: 10560}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 11010}
     - Class: 114
-      Script: {instanceID: 11342}
+      Script: {instanceID: 11300}
+    - Class: 114
+      Script: {instanceID: 11356}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -174,7 +217,7 @@ ScriptsOnlyBuild:
     className: CanvasScaler
   - hash:
       serializedVersion: 2
-      Hash: 8f3136dcb41a879f3227e8eda583c826
+      Hash: fb8a61e75e464d675be8a115ee203e1d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SetupState
@@ -252,10 +295,22 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: 882556526197ba23a37be840c5974754
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TileScript
+  - hash:
+      serializedVersion: 2
       Hash: 9e70ecf91466f07d9bd649be625cae52
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TriggerBox
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -276,6 +331,12 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: a17754cd3e73a4d9dc7e6fabfd1649d3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MousePosition3d
+  - hash:
+      serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -286,6 +347,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: PhysicsRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: cf0fda52cde6f4b7a2f7c34a56634d8a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemyBehaviorScript
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -378,7 +445,7 @@ ScriptsOnlyBuild:
     className: TMP_Asset
   - hash:
       serializedVersion: 2
-      Hash: e7eb3f306839d84b5ce79be801d2be1a
+      Hash: cc2ae0bcf0b695a3037f293aa17024dc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PawnScript
@@ -402,7 +469,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 75a4e10fc467789374b69423f5bc1a22
+      Hash: baaa9942b55e04f87734e0d76aceadd3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WinState
@@ -432,6 +499,12 @@ ScriptsOnlyBuild:
     className: Button
   - hash:
       serializedVersion: 2
+      Hash: 78649327f8194bba4a0a0074c8bd6758
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PauseFunction
+  - hash:
+      serializedVersion: 2
       Hash: 92da9881aed190e8bb74661bcd74aa2c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -450,7 +523,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 965dd79274ee9c91673fba0994a7e221
+      Hash: 0f393e6882b145073ad3f175ac568138
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyTurnState
@@ -504,7 +577,13 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 56d36aee738f3d5c5870b7015c1ae5c1
+      Hash: 024df7553ca1b183b126025307f36874
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraMovement
+  - hash:
+      serializedVersion: 2
+      Hash: 63b988aed6b0bca1e8761b86443f237e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LoseState
@@ -520,6 +599,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AudioTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 620bdcfa682390c3417ee01bf07447de
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MouseRayCast
   - hash:
       serializedVersion: 2
       Hash: ae83e830e7a90c0aff918c4c2e520825
@@ -570,7 +655,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: f2e72ca85c275457c118240ece419a7a
+      Hash: 9199d0ab2699060c169ea7960ceabf3c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -600,7 +685,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: 2f5f4c24171b78353c9434c39a1bb978
+      Hash: 1015f052ff5765bbf956b2df57fb9af0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerTurnState
@@ -654,10 +739,16 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 78649327f8194bba4a0a0074c8bd6758
+      Hash: 23ede812383cd63f27b330a881518f66
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: PauseFunction
+    className: MusicPlayerScript
+  - hash:
+      serializedVersion: 2
+      Hash: 7d566d72b3cd925acb43b38ca934146e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MusicAndAudioController
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainMenu_Scene.unity

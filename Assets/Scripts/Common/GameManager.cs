@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject _pawnSelected;
     [SerializeField] public GameObject _enemyPawnSelected;
 
-
     [SerializeField] GameObject[] _enemyTeam;
     [SerializeField] public GameObject[] _playerTeam;
 

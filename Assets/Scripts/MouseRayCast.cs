@@ -14,17 +14,16 @@ public class MouseRayCast : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit))
         {
-            raycastHit.transform.SendMessage("HitByRay");
+            //raycastHit.transform.SendMessage("HitByRay");
 
-            //if (raycastHit.collider.gameObject.GetComponent<TileScript>())
-            //{
-            //    TileScript._tileScript.HitByRay();
-            //}
-            //if (raycastHit.collider.gameObject.GetComponent<PawnScript>())
-            //{
-            //    PawnScript._pawnScript.HitByRay();
-            //}
-
+            if (raycastHit.collider.gameObject.TryGetComponent(out TileScript tile))
+            {
+                tile.HitByRay();
+            }
+            if (raycastHit.collider.gameObject.TryGetComponent(out PawnScript pawn))
+            {
+                pawn.HitByRay();
+            }
         }
     }
 }

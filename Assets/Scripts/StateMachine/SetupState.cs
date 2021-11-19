@@ -14,6 +14,9 @@ public class SetupState : TurnBasedGameState
 
     [SerializeField] Text _PlayerTurnsText = null;
     [SerializeField] GameObject _EndTurnButton = null;
+
+    [SerializeField] MusicAndAudioController _musicPlayer;
+
     bool _activated = true;
 
     public override void Enter()
@@ -26,7 +29,7 @@ public class SetupState : TurnBasedGameState
 
         //If so, add public void to set _activated to false (this will be called from a button)
         //instead of having it be set here
-
+        _musicPlayer.SetupMusicPlay();
         StartCoroutine(ShowConditions(_pauseDuration));
 
         //Have the camera moving up and down the field?

@@ -13,6 +13,9 @@ public class TileScript : MonoBehaviour
     [SerializeField] public GameObject PawnSelected = null;
     [SerializeField] GameManager _gameManager;
 
+    [SerializeField] AudioSource _attackSound;
+    [SerializeField] AudioSource _moveSound;
+
     int distanceFromPawn = 5;
 
     float distanceX;
@@ -208,6 +211,8 @@ public class TileScript : MonoBehaviour
                         if (_gameManager._pawnSelected.GetComponent<PawnScript>()._TilesToMove > 0)
                         {
                             _gameManager._pawnSelected.transform.position = gameObject.transform.position + pawnHeight;
+                            //play move sound
+                            _moveSound.Play();
                             _gameManager._pawnSelected.GetComponent<PawnScript>()._TilesToMove -= 1;
                             CalculateDistanceBetweenObjects(PawnSelected);
                         }
@@ -234,6 +239,8 @@ public class TileScript : MonoBehaviour
                         {
                             if (_PawnOccupyingTileSpace.tag == "EnemyPawn")
                             {
+                                //play attack sound
+                                _attackSound.Play();
                                 Destroy(_PawnOccupyingTileSpace);
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked = true;
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().Attacking = false;

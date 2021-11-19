@@ -10,6 +10,10 @@ public class EnemyTurnState : TurnBasedGameState
 
     [SerializeField] float _pauseDuration = 3f;
 
+    [SerializeField] MusicAndAudioController _musicPlayer;
+
+    bool _activated = true;
+
     public override void Enter()
     {
         Debug.Log("Enemy Turn: ...Enter");
@@ -17,6 +21,13 @@ public class EnemyTurnState : TurnBasedGameState
 
         //temporary
         //StartCoroutine(EnemyThinkingRoutine(_pauseDuration));
+
+        if (_activated == true)
+        {
+            _activated = false;
+            _musicPlayer.EnemyTurnMusicPlay();
+        }
+
     }
 
     public override void Exit()
@@ -34,6 +45,7 @@ public class EnemyTurnState : TurnBasedGameState
         }
         else
         {
+            _activated = true;
             EnemyTurnEnded?.Invoke();
             StateMachine.ChangeState<PlayerTurnState>();
             _pauseDuration = 3f;

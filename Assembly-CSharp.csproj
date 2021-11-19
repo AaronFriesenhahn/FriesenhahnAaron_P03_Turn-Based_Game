@@ -62,10 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Music\MusicAndAudioController.cs" />
+    <Compile Include="Assets\Music\MusicPlayerScript.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Common\GameManager.cs" />
     <Compile Include="Assets\Scripts\Common\SceneController.cs" />
-    <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\EnemyBehaviorScript.cs" />
     <Compile Include="Assets\Scripts\MousePosition3d.cs" />
     <Compile Include="Assets\Scripts\MouseRayCast.cs" />

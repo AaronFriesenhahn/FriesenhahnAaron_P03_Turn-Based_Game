@@ -11,6 +11,10 @@ public class PlayerTurnState : TurnBasedGameState
     [SerializeField] Button _TempPlayerWinButton = null;
     [SerializeField] Button _TempPlayerLoseButton = null;
 
+    [SerializeField] MusicAndAudioController _musicPlayer;
+
+    bool _activated = true;
+
     int _playerTurnCount = 0;
 
     public override void Enter()
@@ -20,8 +24,8 @@ public class PlayerTurnState : TurnBasedGameState
         _playerEndTurnButton.gameObject.SetActive(true);
 
         //--------temporary--------
-        _TempPlayerWinButton.gameObject.SetActive(true);
-        _TempPlayerLoseButton.gameObject.SetActive(true);
+        //_TempPlayerWinButton.gameObject.SetActive(true);
+        //_TempPlayerLoseButton.gameObject.SetActive(true);
         //--------------------------
 
         _playerTurnCount++;
@@ -30,6 +34,12 @@ public class PlayerTurnState : TurnBasedGameState
 
         //ends player turn
         StateMachine.Input.PressedConfirm += OnPressedConfirm;
+        if (_activated == true)
+        {
+            _activated = false;
+            _musicPlayer.PlayerTurnMusicPlay();
+        }
+
     }
 
     public override void Exit()
@@ -41,6 +51,8 @@ public class PlayerTurnState : TurnBasedGameState
         _TempPlayerWinButton.gameObject.SetActive(false);
         _TempPlayerLoseButton.gameObject.SetActive(false);
         //--------------------------
+
+        _activated = true;
 
         //unhook from events
         StateMachine.Input.PressedConfirm -= OnPressedConfirm;

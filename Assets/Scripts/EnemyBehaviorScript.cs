@@ -8,7 +8,8 @@ public class EnemyBehaviorScript : MonoBehaviour
     [SerializeField] EnemyTurnState _enemyState = null;
     [SerializeField] GameObject[] _enemyPawns;
     [SerializeField] GameObject[] _Tiles;
-    [SerializeField] GameObject[] _ViableTiles;
+    [SerializeField] List<GameObject> _ViableTiles;
+     
     [SerializeField] GameObject _checkingForTile;
     public GameObject _enemyPawnToMove;
     public GameObject _tileToMoveTo;
@@ -18,6 +19,9 @@ public class EnemyBehaviorScript : MonoBehaviour
     Vector3 pawnHeight = new Vector3(0f, 1f, 0f);
 
     [SerializeField] float _pauseDuration = 1f;
+
+    [SerializeField] AudioSource _attackSound;
+    [SerializeField] AudioSource _moveSound;
 
     int pickEnemyPawn = 0;
     int findTiles = 0;
@@ -31,12 +35,18 @@ public class EnemyBehaviorScript : MonoBehaviour
     int findClosestPlayerPawn = 0;
     bool hasAttacked = false;
 
+    int enemyPawnsLength = 0;
+
+    int i = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
         _Tiles = GameObject.FindGameObjectsWithTag("Tile");
-        _ViableTiles = new GameObject[_Tiles.Length];
+        //_ViableTiles = new GameObject[_Tiles.Length];
+
+        enemyPawnsLength = _enemyPawns.Length;
     }
 
     // Update is called once per frame
@@ -45,21 +55,7 @@ public class EnemyBehaviorScript : MonoBehaviour
         if (_stateMachine.CurrentState == _stateMachine.GetComponent<EnemyTurnState>())
         {
             _enemyPawns = GameObject.FindGameObjectsWithTag("EnemyPawn");
-
-            //TODO Code to go through all of the pawns
-            //while (allPawnsMove < _enemyPawns.Length)
-            //{
-            //   SelectRandomPawn();
-            //   allPawnsMove++;
-            //}
-
-            //start enemy AI behavior (choose a pawn, move it to a random viable spot, then attack if a pawn is nearby)
-            SelectRandomPawn();
-
-            //supposed to go through all of he pawns(hopefully)
-            //SelectEachPawn();
-
-            //StartCoroutine(ExitTurn());
+            StartEnemyTurn();
 
             //reset variables
             if (enemyTurnOver == 0)
@@ -69,17 +65,59 @@ public class EnemyBehaviorScript : MonoBehaviour
                 findViableTiles = 0;
                 moveToTile = 0;
                 allPawnsMove = 0;
-                findClosestPlayerPawn = 0;
-                enemyTurnOver++;
+                findClosestPlayerPawn = 0;                
             }
-            _enemyState.Exit();
+            else if (_stateMachine.CurrentState == _stateMachine.GetComponent<LoseState>())
+            {
+                //do nothing
+            }
+            else if (enemyTurnOver == 2)
+            {
+                _enemyState.Exit();
+            }
         }
         else
         {
             enemyTurnOver = 0;
+            i = 0;
         }
     }
     
+    //calls coroutine once
+    public void StartEnemyTurn()
+    {
+        if(enemyTurnOver == 0)
+        {
+            StartCoroutine(EnemyTurnPause());
+            enemyTurnOver++;
+        }
+    }
+
+    IEnumerator EnemyTurnPause()
+    {
+        while (i < _enemyPawns.Length)
+        {
+            yield return new WaitForSeconds(2f);
+            _enemyPawnToMove = _enemyPawns[i];
+            FindViableTiles();
+            TeleportSelectedPawntoRandomViableTile();
+            CheckForPawnToAttack();
+
+            pickEnemyPawn = 0;
+            findTiles = 0;
+            findViableTiles = 0;
+            moveToTile = 0;
+            allPawnsMove = 0;
+            findClosestPlayerPawn = 0;
+            i++;
+            if (_stateMachine.CurrentState == _stateMachine.GetComponent<LoseState>())
+            {
+                i = _enemyPawns.Length;
+            }
+        }
+        enemyTurnOver++;
+    }
+
 
     private void SelectRandomPawn()
     {
@@ -108,6 +146,7 @@ public class EnemyBehaviorScript : MonoBehaviour
 
     private void FindViableTiles()
     {
+        _ViableTiles.Clear();
         //find viable tiles within chosen pawn
         //make an array of viable tiles
         while (findTiles < _Tiles.Length)
@@ -116,29 +155,31 @@ public class EnemyBehaviorScript : MonoBehaviour
 
             if (_Tiles[findTiles].GetComponent<TileScript>()._PawnOccupyingTileSpace == false && distance < 6)
             {
-                _ViableTiles[findViableTiles] = _Tiles[findTiles];
+                //_ViableTiles[findViableTiles] = _Tiles[findTiles];
+                _ViableTiles.Add(_Tiles[findTiles]);
                 findViableTiles++;
             }
-            else
-            {
-                _ViableTiles[findViableTiles] = null;
-                findViableTiles++;
-            }
+            //else
+            //{
+            //    _ViableTiles[findViableTiles] = null;
+            //    findViableTiles++;
+            //}
             findTiles++;
         }
 
         if (findTiles == _Tiles.Length)
         {
-            TeleportSelectedPawntoRandomViableTile();
+            //TeleportSelectedPawntoRandomViableTile();
         }
     }
 
     private void TeleportSelectedPawntoRandomViableTile()
     {
         //teleport chosen pawn to random viable tile
-        if (moveToTile != 1)
+        if (moveToTile != 1 && _ViableTiles.Count != 0)
         {
-            int randompick2 = Random.Range(0, _ViableTiles.Length);
+            //int randompick2 = Random.Range(0, _ViableTiles.Lenght);
+            int randompick2 = Random.Range(0, _ViableTiles.Count);
             _tileToMoveTo = _ViableTiles[randompick2];
             if (_tileToMoveTo == null)
             {
@@ -148,12 +189,13 @@ public class EnemyBehaviorScript : MonoBehaviour
             else
             {
                 _enemyPawnToMove.transform.position = _tileToMoveTo.transform.position + pawnHeight;
+                _moveSound.Play();
                 moveToTile++;
             }
         }
         else
         {
-            CheckForPawnToAttack();
+            //CheckForPawnToAttack();
         }
     }
 
@@ -171,6 +213,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 if(_gameManager._playerTeam[findClosestPlayerPawn].transform.position.z < _enemyPawnToMove.transform.position.z)
                 {
                     //attack
+                    _attackSound.Play();
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -178,6 +221,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.x < _enemyPawnToMove.transform.position.x)
                 {
                     //attack
+                    _attackSound.Play();
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -185,6 +229,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.x > _enemyPawnToMove.transform.position.x)
                 {
                     //attack
+                    _attackSound.Play();
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -192,6 +237,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 else if (_gameManager._playerTeam[findClosestPlayerPawn].transform.position.z > _enemyPawnToMove.transform.position.z)
                 {
                     //attack
+                    _attackSound.Play();
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }                
@@ -204,7 +250,7 @@ public class EnemyBehaviorScript : MonoBehaviour
         }
 
         //send back to Pick next Pawn
-        pickEnemyPawn++;
+        //pickEnemyPawn++;
         WaitBeforePickingAgain();
         //SelectEachPawn();
     }
