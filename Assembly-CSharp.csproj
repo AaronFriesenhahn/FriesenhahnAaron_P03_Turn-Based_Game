@@ -66,6 +66,7 @@
     <Compile Include="Assets\Music\MusicPlayerScript.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Common\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Common\ParticleLifetimeScript.cs" />
     <Compile Include="Assets\Scripts\Common\SceneController.cs" />
     <Compile Include="Assets\Scripts\EnemyBehaviorScript.cs" />
     <Compile Include="Assets\Scripts\MousePosition3d.cs" />

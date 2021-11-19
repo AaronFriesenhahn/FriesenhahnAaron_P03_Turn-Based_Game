@@ -15,6 +15,8 @@ public class TileScript : MonoBehaviour
 
     [SerializeField] AudioSource _attackSound;
     [SerializeField] AudioSource _moveSound;
+    [SerializeField] ParticleSystem _PawnDeathParticles;
+    ParticleSystem ParticleCopy;
 
     int distanceFromPawn = 5;
 
@@ -241,6 +243,7 @@ public class TileScript : MonoBehaviour
                             {
                                 //play attack sound
                                 _attackSound.Play();
+                                ParticleCopy = Instantiate(_PawnDeathParticles, _PawnOccupyingTileSpace.transform.position, Quaternion.identity);
                                 Destroy(_PawnOccupyingTileSpace);
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked = true;
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().Attacking = false;
@@ -250,6 +253,7 @@ public class TileScript : MonoBehaviour
                         {
                             if (_PawnOccupyingTileSpace.tag == "PlayerPawn")
                             {
+                                ParticleCopy = Instantiate(_PawnDeathParticles, _PawnOccupyingTileSpace.transform.position, Quaternion.identity);
                                 Destroy(_PawnOccupyingTileSpace);
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().HasAttacked = true;
                                 _gameManager._pawnSelected.GetComponent<PawnScript>().Attacking = false;

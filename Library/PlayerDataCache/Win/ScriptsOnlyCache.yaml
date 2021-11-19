@@ -11,6 +11,7 @@ ScriptsOnlyBuild:
     - MouseRayCast
     - MusicAndAudioController
     - MusicPlayerScript
+    - ParticleLifetimeScript
     - PauseFunction
     - PawnScript
     - PlayerTurnState
@@ -92,46 +93,52 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9996}
     - Class: 114
-      Script: {instanceID: 10218}
+      Script: {instanceID: 10186}
     - Class: 114
-      Script: {instanceID: 10280}
+      Script: {instanceID: 10220}
     - Class: 114
-      Script: {instanceID: 10364}
+      Script: {instanceID: 10240}
     - Class: 114
-      Script: {instanceID: 10470}
+      Script: {instanceID: 10284}
     - Class: 114
-      Script: {instanceID: 10552}
+      Script: {instanceID: 10368}
     - Class: 114
-      Script: {instanceID: 10560}
+      Script: {instanceID: 10474}
     - Class: 114
-      Script: {instanceID: 10578}
+      Script: {instanceID: 10556}
     - Class: 114
-      Script: {instanceID: 10712}
+      Script: {instanceID: 10564}
     - Class: 114
-      Script: {instanceID: 10854}
+      Script: {instanceID: 10582}
     - Class: 114
-      Script: {instanceID: 10896}
+      Script: {instanceID: 10648}
     - Class: 114
-      Script: {instanceID: 11000}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 11010}
+      Script: {instanceID: 10860}
     - Class: 114
-      Script: {instanceID: 11294}
+      Script: {instanceID: 10902}
+    - Class: 114
+      Script: {instanceID: 11006}
+    - Class: 114
+      Script: {instanceID: 11016}
     - Class: 114
       Script: {instanceID: 11300}
     - Class: 114
-      Script: {instanceID: 11332}
+      Script: {instanceID: 11306}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11338}
     - Class: 114
-      Script: {instanceID: 13050}
-    - Class: 114
-      Script: {instanceID: 13100}
+      Script: {instanceID: 11362}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -183,17 +190,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9840}
     - Class: 114
-      Script: {instanceID: 10218}
+      Script: {instanceID: 10220}
     - Class: 114
-      Script: {instanceID: 10364}
+      Script: {instanceID: 10368}
     - Class: 114
-      Script: {instanceID: 10560}
+      Script: {instanceID: 10564}
     - Class: 114
-      Script: {instanceID: 11010}
+      Script: {instanceID: 11016}
     - Class: 114
-      Script: {instanceID: 11300}
+      Script: {instanceID: 11306}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11362}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -295,7 +302,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: 882556526197ba23a37be840c5974754
+      Hash: 3adc7f6061f407cf378616732d79ac58
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TileScript
@@ -349,7 +356,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: cf0fda52cde6f4b7a2f7c34a56634d8a
+      Hash: 07728dad8cc2e65db1a9321828c80c45
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyBehaviorScript
@@ -403,6 +410,12 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
+      Hash: 23ede812383cd63f27b330a881518f66
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MusicPlayerScript
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -413,6 +426,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ControlPlayableAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 7d566d72b3cd925acb43b38ca934146e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MusicAndAudioController
   - hash:
       serializedVersion: 2
       Hash: b8a5e8091ab0b8861d2add371082c5e0
@@ -515,6 +534,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnBasedGameState
+  - hash:
+      serializedVersion: 2
+      Hash: e47c4bd26e102d033b94f9303876b5b5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ParticleLifetimeScript
   - hash:
       serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
@@ -737,18 +762,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 23ede812383cd63f27b330a881518f66
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MusicPlayerScript
-  - hash:
-      serializedVersion: 2
-      Hash: 7d566d72b3cd925acb43b38ca934146e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MusicAndAudioController
   platform: 5
   scenePathNames:
   - Assets/Scenes/MainMenu_Scene.unity

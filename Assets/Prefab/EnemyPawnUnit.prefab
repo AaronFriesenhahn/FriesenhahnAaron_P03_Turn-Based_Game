@@ -111,8 +111,22 @@ MonoBehaviour:
   _normalMaterial: {fileID: 2100000, guid: 360416e714118944fb28d2af490de618, type: 2}
   _movement: 10
   _attackDistance: 10
+  _TilesToMove: 2
   _gameManager: {fileID: 0}
   _tiles: {fileID: 0}
+  _moveButton: {fileID: 0}
+  _attackButton: {fileID: 0}
+  _doneButton: {fileID: 0}
+  _PawnDeathParticles: {fileID: 9102208435373187002, guid: 43321fbb5a98bb441a161a254b2c81f2,
+    type: 3}
   Selected: 0
   Moving: 0
   Attacking: 0
+  Hovering: 1
+  HasMoved: 0
+  HasAttacked: 0
+  CanMoveAfterAttacking: 0
+  ObjectToNorth: {fileID: 0}
+  ObjectToEast: {fileID: 0}
+  ObjectToSouth: {fileID: 0}
+  ObjectToWest: {fileID: 0}

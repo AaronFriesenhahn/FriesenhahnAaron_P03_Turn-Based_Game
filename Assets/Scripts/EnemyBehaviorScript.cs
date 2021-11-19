@@ -22,6 +22,8 @@ public class EnemyBehaviorScript : MonoBehaviour
 
     [SerializeField] AudioSource _attackSound;
     [SerializeField] AudioSource _moveSound;
+    [SerializeField] ParticleSystem _pawnDeathParticles;
+    ParticleSystem ParticleCopy;
 
     int pickEnemyPawn = 0;
     int findTiles = 0;
@@ -45,7 +47,6 @@ public class EnemyBehaviorScript : MonoBehaviour
     {
         _Tiles = GameObject.FindGameObjectsWithTag("Tile");
         //_ViableTiles = new GameObject[_Tiles.Length];
-
         enemyPawnsLength = _enemyPawns.Length;
     }
 
@@ -99,6 +100,8 @@ public class EnemyBehaviorScript : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
             _enemyPawnToMove = _enemyPawns[i];
+            CheckForPawnToAttack();
+            findClosestPlayerPawn = 0;
             FindViableTiles();
             TeleportSelectedPawntoRandomViableTile();
             CheckForPawnToAttack();
@@ -206,7 +209,6 @@ public class EnemyBehaviorScript : MonoBehaviour
         while (findClosestPlayerPawn < _gameManager._playerTeam.Length)
         {
             float distance = Vector3.Distance(_enemyPawnToMove.transform.position, _gameManager._playerTeam[findClosestPlayerPawn].transform.position);
-
             if (distance < 6)
             {
                 //if closest player pawn is south
@@ -214,6 +216,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 {
                     //attack
                     _attackSound.Play();
+                    ParticleCopy = Instantiate(_pawnDeathParticles, _gameManager._playerTeam[findClosestPlayerPawn].transform.position, Quaternion.identity);
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -222,6 +225,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 {
                     //attack
                     _attackSound.Play();
+                    ParticleCopy = Instantiate(_pawnDeathParticles, _gameManager._playerTeam[findClosestPlayerPawn].transform.position, Quaternion.identity);
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -230,6 +234,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 {
                     //attack
                     _attackSound.Play();
+                    ParticleCopy = Instantiate(_pawnDeathParticles, _gameManager._playerTeam[findClosestPlayerPawn].transform.position, Quaternion.identity);
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }
@@ -238,6 +243,7 @@ public class EnemyBehaviorScript : MonoBehaviour
                 {
                     //attack
                     _attackSound.Play();
+                    ParticleCopy = Instantiate(_pawnDeathParticles, _gameManager._playerTeam[findClosestPlayerPawn].transform.position, Quaternion.identity);
                     Destroy(_gameManager._playerTeam[findClosestPlayerPawn]);
                     hasAttacked = true;
                 }                
