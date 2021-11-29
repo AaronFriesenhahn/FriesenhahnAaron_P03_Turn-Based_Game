@@ -16,3 +16,7 @@ Click on Pawns to choose Actions
 Press Space or Click on End Turn button to end your turn
 
 Right Click on Pawns to Deselect them
+
+
+Innovation Notes:
+Camera is stuck within playable area and is returned to the playable area if they go out of it.

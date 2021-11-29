@@ -39,7 +39,11 @@ public class EnemyBehaviorScript : MonoBehaviour
 
     int enemyPawnsLength = 0;
 
+    //for enemyTurnCoroutine while loop
     int i = 0;
+    //TODO value below for loop if it is implmented
+    //for enemyMovement while Loop
+    int m = 0;
 
 
     // Start is called before the first frame update
@@ -81,6 +85,7 @@ public class EnemyBehaviorScript : MonoBehaviour
         {
             enemyTurnOver = 0;
             i = 0;
+            m = 0;
         }
     }
     
@@ -102,6 +107,11 @@ public class EnemyBehaviorScript : MonoBehaviour
             _enemyPawnToMove = _enemyPawns[i];
             CheckForPawnToAttack();
             findClosestPlayerPawn = 0;
+
+            //TODO somdeay: add loop to allow pawn to move multiple tiles and attack if possible
+            //loop with code
+            //m++; inside loop code
+
             FindViableTiles();
             TeleportSelectedPawntoRandomViableTile();
             CheckForPawnToAttack();
